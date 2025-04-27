@@ -1,0 +1,175 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invitation</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body, html {
+      height: 100%;
+      font-family: 'Georgia', serif;
+      background: linear-gradient(to bottom right, #f5f5f5, #e0e0e0);
+    }
+    .page {
+      display: none;
+      height: 100vh;
+      width: 100vw;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      padding: 20px;
+    }
+    .page.active {
+      display: flex;
+      animation: fadeIn 0.5s ease;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+    .invitation-card img {
+      max-width: 90%;
+      max-height: 70vh;
+      border-radius: 15px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+    .buttons, .nav-buttons {
+      margin-top: 20px;
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    a.button, button.nav-button {
+      background-color: #333;
+      color: white;
+      padding: 12px 20px;
+      text-decoration: none;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    a.button:hover, button.nav-button:hover {
+      background-color: #555;
+    }
+    .nav-buttons {
+      position: absolute;
+      bottom: 20px;
+      left: 0;
+      right: 0;
+    }
+    .nav-buttons a{
+        text-decoration: none;
+        color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page active" id="page1">
+    <div class="invitation-card">
+      <img src="images/invitation_page_1_1.png" alt="Invitation Page 1">
+    </div>
+    <div class="nav-buttons">
+      <button class="nav-button"><a href="/inviteForm">Invitation-Form</a></button>
+      <button class="nav-button" onclick="nextPage()">Next</button>
+    </div>
+  </div>
+
+  <div class="page" id="page2">
+    <div class="invitation-card">
+      <img src="images/invitation_page_2_1.png" alt="Invitation Page 2">
+    </div>
+    <div class="nav-buttons">
+      <button class="nav-button" onclick="prevPage()">Prev</button>
+      <button class="nav-button" onclick="nextPage()">Next</button>
+    </div>
+  </div>
+
+  <div class="page" id="page3">
+    <div class="invitation-card">
+      <img src="images/invitation_page_3_1.png" alt="Invitation Page 3">
+    </div>
+    <div class="nav-buttons">
+      <button class="nav-button" onclick="prevPage()">Prev</button>
+      <button class="nav-button" onclick="nextPage()">Next</button>
+    </div>
+  </div>
+
+  <div class="page" id="page4">
+    <div class="invitation-card">
+      <img src="images/invitation_page_4.png" alt="Invitation Page 4">
+    </div>
+    <div class="buttons">
+        <a href="https://www.google.com/maps" target="_blank" class="button">Find Direction</a>
+        <a href="tel:+2347048507838" class="button">Call Me</a>
+      </div>
+    <div class="nav-buttons">
+      <button class="nav-button" onclick="prevPage()">Prev</button>
+      <!-- <button class="nav-button" onclick="nextPage()">Next</button> -->
+    </div>
+  </div>
+
+  <!-- <div class="page" id="page4">
+    <div class="invitation-card">
+      <div style="background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+        <h2>No. 9,</h2>
+        <h2>A.C Nwapa Road,</h2>
+        <h2>Oguta, Imo State.</h2>
+        <br>
+        <h3>OR</h3>
+        <h3>Find the direction</h3>
+        <br>
+        <h3>Call me:</h3>
+        <h3>+234(0) 704 8507 838</h3>
+      </div>
+    </div>
+    <div class="buttons">
+      <a href="https://www.google.com/maps" target="_blank" class="button">Find Direction</a>
+      <a href="tel:+2347048507838" class="button">Call Me</a>
+    </div>
+    <div class="nav-buttons">
+      <button class="nav-button" onclick="prevPage()">Prev</button>
+    </div>
+  </div> -->
+
+<script>
+  let currentPage = 1;
+  const totalPages = 4;
+
+  function showPage(page) {
+    for (let i = 1; i <= totalPages; i++) {
+      document.getElementById('page' + i).classList.remove('active');
+    }
+    document.getElementById('page' + page).classList.add('active');
+  }
+
+  function nextPage() {
+    if (currentPage < totalPages) {
+      currentPage++;
+      showPage(currentPage);
+    }
+  }
+
+  function prevPage() {
+    if (currentPage > 1) {
+      currentPage--;
+      showPage(currentPage);
+    }
+  }
+</script>
+
+</body>
+</html>
+

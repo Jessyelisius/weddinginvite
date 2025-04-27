@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Invitation-Form</title>
+</head>
+<body>
+  
+    <div class="page active" id="page5">
+        <form id="inviteForm" action="/invite" method="POST">
+          <h2>Confirm Your Attendance</h2>
+      
+          <input type="text" name="FullName" placeholder="Full Name" required>
+          
+          <input type="tel" name="PhoneNo" placeholder="Phone Number" required>
+      
+          <button type="submit"  class="button">Submit</button>
+        </form>
+      
+        <div class="nav-buttons">
+          <button class="nav-button" onclick="prevPage()"><a href="/viewInvite">View-Invites</a></button>
+        </div>
+      </div>
+</body>
+</html>
