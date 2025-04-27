@@ -9,7 +9,7 @@ const InviteSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    Date:{
+    createdAt:{
         type: Date,
         default:Date.now()
     }

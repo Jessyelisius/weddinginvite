@@ -9,6 +9,9 @@
 <body>
   
     <div class="page active" id="page5">
+        <% if (message) { %>
+            <div class="alert alert-danger text-center mt-3"><%= message %></div>
+          <% } %><br><br>
         <form id="inviteForm" action="/invite" method="POST">
           <h2>Confirm Your Attendance</h2>
       
@@ -18,6 +21,7 @@
       
           <button type="submit"  class="button">Submit</button>
         </form>
+       
       
         <div class="nav-buttons">
           <button class="nav-button" onclick="prevPage()"><a href="/viewInvite">View-Invites</a></button>

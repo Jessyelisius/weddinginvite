@@ -6,22 +6,75 @@
     <link rel="stylesheet" href="/css/style.css">
     <title>Invitation-Form</title>
 </head>
-<body>
-  
-    <div class="page active" id="page5">
-        <form id="inviteForm" action="/invite" method="POST">
-          <h2>Confirm Your Attendance</h2>
-      
-          <input type="text" name="FullName" placeholder="Full Name" required>
-          
-          <input type="tel" name="PhoneNo" placeholder="Phone Number" required>
-      
-          <button type="submit"  class="button">Submit</button>
-        </form>
-      
-        <div class="nav-buttons">
-          <button class="nav-button" onclick="prevPage()"><a href="/viewInvite">View-Invites</a></button>
-        </div>
+<body class="dashboard-body">
+    
+    <% if (message) { %>
+        <div class="alert alert-danger text-center mt-3"><%= message %></div>
+      <% } %><br><br>
+      <h1 class="dashboard-title">Invitees List</h1>
+    
+      <table class="dashboard-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Full Name</th>
+            <th>Phone Number</th>
+            <th>Registered At</th>
+          </tr>
+        </thead>
+        <tbody id="inviteeTable">
+          <!-- Invitees will be loaded here -->
+            <% if( invitees && invitees.length > 0){%>
+              <% invitees.forEach((invite, index) => { %>
+                <tr>
+                  <td><%= index + 1 %></td>
+                  <td><%= invite.FullName %></td>
+                  <td><%= invite.PhoneNo %></td>
+                  <td><%= new Date(invite.createdAt).toLocaleString() %></td>
+                </tr>
+              <% }) %>
+            <% } else { %>
+              <p>No emails available to display.</p>
+            <% } %>
+        </tbody>
+      </table>
+      <div class="nav-buttons">
+        <button class="nav-button" onclick="prevPage()"><a href="/">invite-card</a></button>
       </div>
+    
+    <!-- <script>
+      async function loadInvitees() {
+        try {
+          const res = await fetch('/api/invitees');
+          const invitees = await res.json();
+          const table = document.getElementById('inviteeTable');
+    
+          if (invitees.length === 0) {
+            table.innerHTML = `<tr><td colspan="3">No invitees yet.</td></tr>`;
+          } else {
+            invitees.forEach(invitee => {
+              const row = `
+                <tr>
+                  <td>${invitee.fullname}</td>
+                  <td>${invitee.phoneno}</td>
+                  <td>${new Date(invitee.createdAt).toLocaleString()}</td>
+                </tr>
+              `;
+              table.innerHTML += row;
+            });
+          }
+        } catch (error) {
+          console.error('Error fetching invitees:', error);
+          document.getElementById('inviteeTable').innerHTML = `<tr><td colspan="3">Failed to load invitees.</td></tr>`;
+        }
+      }
+    
+      // Load invitees when page loads
+      loadInvitees();
+    </script> -->
+    
+    </body>
+    </html>
+    
 </body>
 </html>

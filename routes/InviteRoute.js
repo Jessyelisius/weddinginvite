@@ -9,17 +9,17 @@ router.get('/', (req, res) => {
 // Submit invitee
 
 router.get('/inviteForm', (req, res) => {
-    res.render('inviteForm');
+    res.render('inviteForm', {message:''});
 });
 
 router.post('/invite', async (req, res) => {
   try {
-    const { fullname, phoneno } = req.body;
-    if (!fullname || !phoneno) {
+    const { FullName, PhoneNo } = req.body;
+    if (!FullName || !PhoneNo) {
       return res.status(400).render('inviteForm', { message: 'All fields are required.' });
     }
 
-    const invitee = new inviteesModel({ fullname, phoneno });
+    const invitee = new inviteesModel({ FullName, PhoneNo });
     await invitee.save();
 
     res.redirect('viewInvite');
@@ -33,10 +33,14 @@ router.post('/invite', async (req, res) => {
 router.get('/viewInvite', async (req, res) => {
   try {
     const invitees = await inviteesModel.find().sort({ createdAt: -1 });
-    res.render(invitees);
+
+    if (!invitees || invitees.length === 0) {
+        return res.render('viewInvite', { message: "No invitees records found", invitees: [] });
+    }
+    res.render('viewInvite',{invitees, message:null});
   } catch (error) {
     console.error(error);
-    res.status(500).render('inviteForm', { message: 'Server error.' });
+    res.status(500).render('inviteForm', { message: 'Server error.', invitees: []});
   }
 });
 
