@@ -21,6 +21,9 @@
             <th>Phone Number</th>
             <th>Registered At</th>
             <th>View Link</th>
+            <th>Get QRCOde</th>
+            <th>Share Invitation</th>
+
           </tr>
         </thead>
         <tbody id="inviteeTable">
@@ -33,6 +36,14 @@
                   <td><%= invite.PhoneNo %></td>
                   <td><%= new Date(invite.createdAt).toLocaleString() %></td>
                   <td><a href="/invite?username=<%= invite.FullName %>" style="color: rgb(29, 74, 133);">Open</a></td>
+                  <td><a download="<%= invite.FullName %>.png" href="https://api.qrserver.com/v1/create-qr-code/?size=500x500&download=1&data=<%= encodeURIComponent(link + '/invite?username=' + invite.FullName) %>"  style="color: rgb(29, 74, 133);" >download</a></td>
+                  <td>
+                    <!-- Share Button -->
+                    <button onclick="shareInvite('<%= link %>/invite?username=<%= encodeURIComponent(invite.FullName) %>')"
+                            style="color: rgb(29, 74, 133); background: none; border: none; cursor: pointer;">
+                       Share Invite
+                    </button>
+                  </td>
                 </tr>
               <% }) %>
             <% } else { %>
@@ -44,6 +55,33 @@
         <button class="nav-button" onclick="prevPage()"><a href="/">invite-card</a></button>
       </div>
     
+      <script>
+        async function shareInvite(url) {
+          try {
+            await navigator.share({
+              title: 'Join me!',
+              text: `Celebrate with me at my wedding, click the lin to grab your invitations!`,
+              url: url
+            });
+          } catch (err) {
+            // Fallback for browsers without Web Share API
+            copyToClipboard(url);
+            alert('Link copied to clipboard!');
+          }
+        }
+        
+        function copyToClipboard(text) {
+          navigator.clipboard.writeText(text).catch(err => {
+            // Ultimate fallback
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+          });
+        }
+        </script>
     <!-- <script>
       async function loadInvitees() {
         try {

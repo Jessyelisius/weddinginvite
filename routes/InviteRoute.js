@@ -45,12 +45,12 @@ router.get('/viewInvite', async (req, res) => {
     const invitees = await inviteesModel.find().sort({ createdAt: -1 });
 
     if (!invitees || invitees.length === 0) {
-        return res.render('viewInvite', { message: "No invitees records found", invitees: [] });
+        return res.render('viewInvite', { message: "No invitees records found", invitees: [], link:process.env.weblink });
     }
-    res.render('viewInvite',{invitees, message:null});
+    res.render('viewInvite',{invitees, message:null,link:process.env.weblink});
   } catch (error) {
     console.error(error);
-    res.status(500).render('inviteForm', { message: 'Server error.', invitees: []});
+    res.status(500).render('inviteForm', { message: 'Server error.', invitees: [],link:process.env.weblink});
   }
 });
 
