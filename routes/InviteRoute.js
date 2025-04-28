@@ -35,7 +35,7 @@ router.post('/invite', async (req, res) => {
     res.redirect('viewInvite');
   } catch (error) {
     console.error(error);
-    res.status(500).json('inviteForm',{ message: 'Server error.' });
+    res.status(500).render('inviteForm',{ message: 'Server error.' });
   }
 });
 
