@@ -6,6 +6,16 @@ router.get('/', (req, res) => {
     res.render("inviteCard");
 });
 
+router.get('/invite', async(req, res) => {
+    let username= req.query.username
+
+    let getuser= await inviteesModel.findOne({FullName:username})
+
+    if(!getuser)return res.status(404).render(404)
+
+    res.render("invite",{username:username.toUpperCase()});
+});
+
 // Submit invitee
 
 router.get('/inviteForm', (req, res) => {

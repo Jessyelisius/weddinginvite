@@ -20,6 +20,7 @@
             <th>Full Name</th>
             <th>Phone Number</th>
             <th>Registered At</th>
+            <th>View Link</th>
           </tr>
         </thead>
         <tbody id="inviteeTable">
@@ -31,6 +32,7 @@
                   <td><%= invite.FullName %></td>
                   <td><%= invite.PhoneNo %></td>
                   <td><%= new Date(invite.createdAt).toLocaleString() %></td>
+                  <td><a href="/invite?username=<%= invite.FullName %>" style="color: rgb(29, 74, 133);">Open</a></td>
                 </tr>
               <% }) %>
             <% } else { %>
